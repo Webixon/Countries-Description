@@ -8,6 +8,7 @@
 }
 body{
     font-family: Arial, Helvetica, sans-serif;
+    
 }
 #header{
     display: flex;
@@ -18,4 +19,22 @@ body{
 }
 #search{
     background-color: var(--backgroundcolor);
+    
+}
+
+#flag{
+    border: 2px solid;
+    height: 200px;
+    width: 100%;
+    /* background-color: blue;  */
+    /* background-image: url("https://flagcdn.com/w320/pl.png");  */
+ } 
+
+.country{
+    display: flex;
+    flex-direction: column;
+    width: 25%;
+    border: 2px solid black;
+    font-size: 24px;
+    font-weight: bold;
 }

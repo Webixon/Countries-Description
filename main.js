@@ -1,25 +1,69 @@
 document.addEventListener('DOMContentLoaded', allCountries)
 let searchBtn = document.querySelector('#searchBtn')
+let showAllCountriesBtn = document.querySelector('#allBtn');
+let regionBtn = document.querySelector('#regionBtn')
 let inputValue = document.querySelector('#countryInput')
-let countryTicket = document.querySelector('.country');
 let container = document.querySelector('#container')
 let globalData = null;
 let result = null;
 let country = null;
-
+let select = null;
+let option = null;
+let all = null
+let region = null;
 function search (e) {
     result = e.target.value
-    // console.log(result)
     lookForTheCountry()
+    
+}
+function update() {
+    select = document.getElementById('regions');
+    option = select.options[select.selectedIndex].value;
+}
+
+update();
+
+select.addEventListener('change', () => getByRegion())
+regionBtn.addEventListener('click', () => showByRegion())
+
+function getByRegion(){
+    fetch(`https://restcountries.com/v3.1/region/${option}`)
+        .then(res => res.json())
+        .then(data => region = data)
+    
+}
+
+function showByRegion() {
+    container.textContent = ""
+    region.forEach((el) => {
+    let fl = el.flags.png
+    let newestEl = document.createElement('div');
+    el = `<div id="flag"></div>
+    <div id="countryData">
+    <div id="countryName"><span id="name">${el.name.common}</span></div>
+    <div id="population">Population: ${el.population}</div>
+    <div id="region">Region: ${el.region}</div>
+    <div id="capital">Capital: ${el.capital}</div>
+    </div>`
+    newestEl.innerHTML = el;
+    newestEl.style.backgroundImage = `url(${fl})`
+    newestEl.style.backgroundsize = 'cover';
+    newestEl.style.backgroundRepeat = 'no-repeat';
+    newestEl.style.border =  '1px solid black';
+    newestEl.classList.add('country')
+    container.appendChild(newestEl)
+})
 }
 
 function createTemplate () {
 
     country = `<div id="flag"></div>
-                <div id="countryName">${globalData[0].name.common}</div>
-                <div id="population">${globalData[0].population}</div>
-                <div id="region">${globalData[0].region}</div>
-                <div id="capital">${globalData[0].capital}</div>`
+                <div id="countryData">
+                <div id="countryName"><span id="name">${globalData[0].name.common}</span></div>
+                <div id="population">Population: ${globalData[0].population}</div>
+                <div id="region">Region: ${globalData[0].region}</div>
+                <div id="capital">Capital: ${globalData[0].capital}</div>
+                </div>`
       console.log(globalData[0].name.common)          
 }
 
@@ -27,16 +71,16 @@ function createTemplate () {
 inputValue.addEventListener('input', search)
 
 function createElement () {
+    container.textContent = ""
     let newEl = document.createElement('div')
     
     newEl.innerHTML=country;
-    newEl.classList.add()
+    newEl.classList.add('country')
     newEl.style.backgroundImage = `url(${globalData[0].flags.png})`
     newEl.style.backgroundsize = 'cover';
     newEl.style.backgroundRepeat = 'no-repeat';
-    // newEl.style.maxHeight = '200px';
-    // newEl.style.backgroundColor = 'blue'
-    countryTicket.appendChild(newEl)
+    newEl.style.border =  '1px solid black';
+    container.appendChild(newEl)
     
 }
 
@@ -44,14 +88,12 @@ function createElement () {
 function lookForTheCountry (){
 fetch(`https://restcountries.com/v3.1/name/${result}`)
     .then(res => res.json())
-    // .then(data => countryName = data[0].name.common)
-    // .then(data => console.log(data))
     .then(data => globalData = data)
     .catch(err => console.log(err))
 }
 
 
-let all = null
+
 function allCountries () {
     fetch('https://restcountries.com/v3.1/all').then(res=>res.json()).then(data=>all = data)
 }
@@ -59,14 +101,17 @@ function allCountries () {
 
 
 function showAllCountries () {
+    container.textContent = ""
 all.forEach(el => {
     let fl = el.flags.png
     let newestEl = document.createElement('div');
     el = `<div id="flag"></div>
-    <div id="countryName">${el.name.common}</div>
-    <div id="population">${el.population}</div>
-    <div id="region">${el.region}</div>
-    <div id="capital">${el.capital}</div>`
+    <div id="countryData">
+    <div id="countryName"><span id="name">${el.name.common}</span></div>
+    <div id="population">Population: ${el.population}</div>
+    <div id="region">Region: ${el.region}</div>
+    <div id="capital">Capital: ${el.capital}</div>
+    </div>`
     newestEl.innerHTML = el;
     newestEl.style.backgroundImage = `url(${fl})`
     newestEl.style.backgroundsize = 'cover';
@@ -76,9 +121,22 @@ all.forEach(el => {
     container.appendChild(newestEl)
 })}
 
-
+showAllCountriesBtn.addEventListener('click', () => showAllCountries())
 
 
 
 searchBtn.addEventListener('click', createTemplate)
 searchBtn.addEventListener('click', createElement)
+
+
+
+
+// function drawingDiv(name,population,region,capital){
+//     el = `<div id="flag"></div>
+//     <div id="countryData">
+//     <div id="countryName"><span id="name">${name}</span></div>
+//     <div id="population">Population: ${population}</div>
+//     <div id="region">Region: ${region}</div>
+//     <div id="capital">Capital: ${capital}</div>
+//     </div>`
+// }

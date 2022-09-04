@@ -23,7 +23,6 @@ body{
 }
 
 #flag{
-    border: 1px solid;
     height: 200px;
     width: 100%;
     border-radius: 2%;
@@ -47,4 +46,16 @@ body{
     width: 100vw;
     flex-direction: row;
     flex-wrap: wrap;
+}
+#countryData{
+    font-size: 20px;
+    margin:10px 0px 10px 15px;
+}
+#name{
+    font-size: 34px;
+    
+}
+#nav{
+    display: flex;
+    
 }

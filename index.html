@@ -13,14 +13,13 @@
 <body>
     <header id="header">
         <h1 id="title">Where in the World?</h1>
-        <div id="darkTheme">Dark Theme</div>
     </header>
     <nav id="nav">
         <div id="search">
             <input id="countryInput"><button id="searchBtn" type="submit">Search</button>
         </div>
         <div id="showAll"><button id="allBtn">Show all countries</button></div>
-        <label for="regions">Choose region:</label>
+        <label for="regions" id="regionName">Choose region:</label>
         <select id="regions" name="regions" onchange="update()">
             <option value="--">--</option>
             <option value="Europe">Europe</option>

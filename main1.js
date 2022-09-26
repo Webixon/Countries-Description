@@ -16,20 +16,21 @@ function search (e) {
     result = e.target.value
     lookForTheCountry()    
 }
+
 function update() {
     select = document.getElementById('regions');
     option = select.options[select.selectedIndex].value;
 }
 update();
 
-select.addEventListener('change', () => getByRegion())
-regionBtn.addEventListener('click', () => showByRegion())
-
 function getByRegion(){
-    fetch(`https://restcountries.com/v3.1/region/${option}`)
-        .then(res => res.json())
-        .then(data => region = data)    
-}
+    fetch(`https://restcountries.com/v3.1/region/${option}`).then(res => res.json()).then(data => region = data).catch(err => console.log(err))}
+
+function lookForTheCountry (){
+    fetch(`https://restcountries.com/v3.1/name/${result}`).then(res => res.json()).then(data => globalData = data).catch(err => console.log(err))
+    }
+function allCountries () {
+    fetch('https://restcountries.com/v3.1/all').then(res=>res.json()).then(data=>all = data).catch(err => console.log(err))}
 
 function showByRegion() {
     container.textContent = ""
@@ -59,28 +60,12 @@ function drawingDiv(name,population,region,capital,flag){
     container.appendChild(newEl)
 }
 
-function lookForTheCountry (){
-fetch(`https://restcountries.com/v3.1/name/${result}`)
-    .then(res => res.json())
-    .then(data => globalData = data)
-    .catch(err => console.log(err))
-}
-
-
-function allCountries () {
-    fetch('https://restcountries.com/v3.1/all').then(res=>res.json()).then(data=>all = data)
-}
-
 function showAllCountries () {
     container.textContent = ""
-    all.forEach(el => {
-        drawingDiv(el.name.common,el.population,el.region,el.capital,el.flags.png) 
-})}
+    all.forEach(el => drawingDiv(el.name.common,el.population,el.region,el.capital,el.flags.png))}
 
+select.addEventListener('change', () => getByRegion())
+regionBtn.addEventListener('click', () => showByRegion())
 showAllCountriesBtn.addEventListener('click', () => showAllCountries())
 inputValue.addEventListener('input', search)
 searchBtn.addEventListener('click', createTemplate)
-
-
-
-

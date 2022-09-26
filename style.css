@@ -23,17 +23,17 @@ body{
 }
 
 #flag{
-    height: 200px;
+    height: 100%;
     width: 100%;
     border-radius: 2%;
-    /* background-color: blue;  */
-    /* background-image: url("https://flagcdn.com/w320/pl.png");  */
+    object-fit: contain;
  } 
 
 .country{
     display: flex;
     flex-direction: column;
-    width: 25%;
+    width: 320px;
+    height:350px;
     font-size: 24px;
     font-weight: bold;
     margin: 5px;
@@ -48,7 +48,7 @@ body{
     flex-wrap: wrap;
 }
 #countryData{
-    font-size: 20px;
+    font-size: 18px;
     margin:10px 0px 10px 15px;
 }
 #name{
@@ -57,5 +57,27 @@ body{
 }
 #nav{
     display: flex;
-    
+    margin: 15px 0 20px 15px;    
 }
+#allBtn, #regions, #regionBtn, #searchBtn, #countryInput, #darkTheme{
+    background-color: transparent;
+    padding: 3px 3px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 5px;
+}
+#regionName{
+    align-self: center;
+    font-size: 18px;
+}
+#title{
+    margin-left: 20px;
+}
+
+@media only screen and (max-width: 967px) {
+    #nav{
+        display: flex;
+        flex-direction: column;
+        margin: 15px 15px 20px 15px;    
+    }
+  }
